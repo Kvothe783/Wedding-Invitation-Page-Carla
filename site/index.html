@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Hugo &amp; Carla — 14 mai 2027</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Faire-part de mariage — Hugo &amp; Carla, 14 mai 2027">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="scroller" class="scroller">
+
+  <section class="screen screen-hero">
+    <img src="assets/branch-topleft.png" alt="" class="deco deco-hero-tl">
+    <img src="assets/branch-bottomright.png" alt="" class="deco deco-hero-br">
+
+    <h1 data-reveal class="hero-title">
+      <span class="line">Hugo</span>
+      <span class="line line-amp">&amp; Carla</span>
+    </h1>
+
+    <p data-reveal data-delay="180" class="hero-lead">Rejoignez-nous pour célébrer notre union le</p>
+
+    <div data-reveal data-delay="340" class="date-row">
+      <div class="date-side">Vendredi</div>
+      <div class="date-circle">
+        <span class="date-month">Mai</span>
+        <span class="date-day">14</span>
+        <span class="date-year">2027</span>
+      </div>
+      <div class="date-side">15h30</div>
+    </div>
+
+    <button type="button" id="scrollNext" class="scroll-hint" aria-label="Faire défiler vers la section suivante">
+      <span class="scroll-hint-label">Faites glisser</span>
+      <span class="scroll-hint-chevron"></span>
+    </button>
+  </section>
+
+  <section class="screen screen-programme">
+    <img data-reveal alt="" src="assets/branch-arc.png" class="arc arc-programme">
+    <h2 data-reveal data-delay="140" class="script-title">Le programme</h2>
+
+    <div class="programme-list">
+      <div data-reveal data-delay="260" class="programme-item">
+        <img src="assets/rings.png" alt="" class="programme-icon programme-icon-rings">
+        <div>
+          <div class="programme-when">15 H 30 — Cérémonie</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=17+Grand+Place%2C+59100+Roubaix" target="_blank" rel="noopener" class="programme-where">17 grand place, Roubaix 59100</a>
+        </div>
+      </div>
+      <div data-reveal data-delay="400" class="programme-item">
+        <img src="assets/glasses.png" alt="" class="programme-icon programme-icon-glasses">
+        <div>
+          <div class="programme-when">17 H 00 — Vin d&rsquo;honneur</div>
+          <a href="https://www.google.com/maps/search/?api=1&query=Lauwestraat+59%2C+8560+Wevelgem%2C+Belgique" target="_blank" rel="noopener" class="programme-where">Lauwestraat 59, 8560 Wevelgem, Belgique</a>
+        </div>
+      </div>
+    </div>
+
+    <img data-reveal data-delay="540" alt="" src="assets/couple.png" class="couple-img">
+  </section>
+
+  <section class="screen screen-dresscode">
+    <img src="assets/branch-arc.png" alt="" data-reveal class="arc arc-dresscode">
+    <h2 data-reveal data-delay="80" class="dresscode-title">Dress Code</h2>
+    <p data-reveal data-delay="140" class="dresscode-intro">Nous r&ecirc;vons d&rsquo;une palette naturelle&nbsp;: verts sauge et olive pour les femmes, nuances de gris pour les hommes.</p>
+
+    <div class="swatch-row">
+      <div data-reveal data-delay="180" class="swatch-col">
+        <div class="swatch-col-title">Hommes</div>
+        <div class="swatch-group">
+          <div class="swatch swatch-grey-1"></div>
+          <div class="swatch swatch-grey-2"></div>
+          <div class="swatch swatch-grey-3"></div>
+        </div>
+        <div class="swatch-labels">Gris perle &middot; Gris moyen<br>Anthracite</div>
+      </div>
+      <div data-reveal data-delay="100" class="swatch-divider"></div>
+      <div data-reveal data-delay="320" class="swatch-col">
+        <div class="swatch-col-title">Femmes</div>
+        <div class="swatch-group">
+          <div class="swatch swatch-green-1"></div>
+          <div class="swatch swatch-green-2"></div>
+          <div class="swatch swatch-green-3"></div>
+        </div>
+        <div class="swatch-labels">Olive &middot; Sauge<br>Amande</div>
+      </div>
+    </div>
+
+    <div data-reveal data-delay="440" class="dresscode-note-wrap">
+      <div class="hairline"></div>
+      <p class="dresscode-note">Le blanc est r&eacute;serv&eacute; &agrave; la mari&eacute;e. Pour le reste, faites-vous plaisir.</p>
+    </div>
+  </section>
+
+  <section class="screen screen-mot">
+    <img src="assets/branch-arc.png" alt="" data-reveal class="arc arc-mot">
+    <p data-reveal class="script-quote">Venez c&eacute;l&eacute;brer notre union &#10084;&#65039;</p>
+    <div data-reveal data-delay="260" class="hairline hairline-mot"></div>
+    <p data-reveal data-delay="360" class="mot-signature">Hugo &amp; Carla</p>
+  </section>
+
+  <section class="screen screen-rsvp">
+    <img src="assets/branch-bottomright.png" alt="" class="deco deco-rsvp">
+
+    <div id="rsvpSent" class="rsvp-sent" hidden>
+      <h2 class="script-title">Merci</h2>
+      <p id="rsvpConfirmation" class="rsvp-confirmation"></p>
+      <button type="button" id="rsvpEdit" class="link-button">Modifier ma r&eacute;ponse</button>
+    </div>
+
+    <form id="rsvpForm" class="rsvp-form" novalidate>
+      <h2 data-reveal class="rsvp-title">Votre r&eacute;ponse</h2>
+      <p data-reveal data-delay="140" class="rsvp-deadline">Merci de nous r&eacute;pondre avant le 14 janvier 2027.</p>
+
+      <div data-reveal data-delay="240" class="rsvp-fields">
+        <label class="field">
+          <span class="field-label">Nom</span>
+          <input type="text" id="lastName" name="lastName" placeholder="Dupont" autocomplete="family-name" class="field-input">
+        </label>
+
+        <label class="field">
+          <span class="field-label">Pr&eacute;nom</span>
+          <input type="text" id="firstName" name="firstName" placeholder="Marie" autocomplete="given-name" class="field-input">
+        </label>
+
+        <div class="field">
+          <span class="field-label">Serez-vous pr&eacute;sent&middot;e&nbsp;?</span>
+          <div class="attend-row">
+            <button type="button" id="pickYes" class="attend-btn">Avec plaisir</button>
+            <button type="button" id="pickNo" class="attend-btn">Malheureusement non</button>
+          </div>
+        </div>
+
+        <div id="countWrap" class="count-wrap">
+          <label class="field">
+            <span class="field-label">Nombre de personnes</span>
+            <div class="count-row">
+              <button type="button" id="countDec" class="count-btn" aria-label="Retirer une personne">&minus;</button>
+              <span id="countValue" class="count-value">2</span>
+              <button type="button" id="countInc" class="count-btn" aria-label="Ajouter une personne">+</button>
+            </div>
+          </label>
+        </div>
+
+        <button type="submit" id="rsvpSubmit" class="submit-btn">Envoyer</button>
+
+        <div id="rsvpError" class="form-error"></div>
+      </div>
+    </form>
+  </section>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

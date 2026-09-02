@@ -1,0 +1,538 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #F8F7EF;
+  overscroll-behavior-y: none;
+  overflow-x: hidden;
+}
+
+@media (max-width: 420px) {
+  input { font-size: 16px !important; }
+}
+
+* { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
+
+a { color: #3E5233; text-decoration: none; }
+a:hover { color: #5B6640; }
+
+input, select, button { font-family: 'EB Garamond', Garamond, serif; }
+input::placeholder { color: rgba(62, 82, 51, .35); }
+
+@keyframes fp-bob {
+  0%, 100% { transform: translateY(0); opacity: .5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+@keyframes fp-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(-1.2deg); }
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 1.1s cubic-bezier(.22, .61, .36, 1), transform 1.1s cubic-bezier(.22, .61, .36, 1);
+  will-change: opacity, transform;
+}
+[data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+.scroller {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+  background: #F8F7EF;
+  font-family: 'EB Garamond', Garamond, serif;
+  color: #3E5233;
+  -webkit-font-smoothing: antialiased;
+}
+
+.screen {
+  position: relative;
+  min-height: 100dvh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.deco { pointer-events: none; }
+
+/* ---------- 01 Hero ---------- */
+
+.screen-hero {
+  padding: 12vh 20px 15vh;
+  overflow: hidden;
+}
+
+.deco-hero-tl {
+  position: absolute;
+  top: 1vh;
+  left: -16%;
+  width: min(42vw, 440px);
+  animation: fp-drift 14s ease-in-out infinite;
+}
+
+.deco-hero-br {
+  position: absolute;
+  bottom: -1vh;
+  right: -16%;
+  width: min(44vw, 430px);
+  animation: fp-drift 17s ease-in-out infinite reverse;
+}
+
+.hero-title {
+  position: relative;
+  margin: 0;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  font-size: clamp(56px, 17vw, 112px);
+  line-height: .95;
+  text-align: center;
+}
+.hero-title .line { display: block; }
+.hero-title .line-amp { margin-left: -.3em; }
+
+.hero-lead {
+  position: relative;
+  margin: clamp(22px, 5vh, 40px) 0 0;
+  font-size: clamp(16px, 4.5vw, 21px);
+  text-align: center;
+  max-width: 20em;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.date-row {
+  position: relative;
+  margin-top: clamp(28px, 6vh, 52px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 4vw, 30px);
+}
+
+.date-side {
+  padding: 6px 0;
+  border-top: 1px solid #3E5233;
+  border-bottom: 1px solid #3E5233;
+  font-size: clamp(19px, 5.6vw, 30px);
+}
+
+.date-circle {
+  width: clamp(92px, 27vw, 124px);
+  height: clamp(134px, 39vw, 176px);
+  border: 1px solid #3E5233;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+.date-month { font-size: clamp(15px, 4.2vw, 20px); }
+.date-day { font-size: clamp(38px, 11.5vw, 56px); line-height: 1; }
+.date-year { font-size: clamp(14px, 3.8vw, 18px); }
+
+.scroll-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  margin-left: -70px;
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  animation: fp-bob 2.8s ease-in-out infinite;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #3E5233;
+}
+.scroll-hint-label {
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-family: 'EB Garamond', Garamond, serif;
+}
+.scroll-hint-chevron {
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid #3E5233;
+  border-bottom: 1px solid #3E5233;
+  transform: rotate(45deg);
+}
+
+/* ---------- 02 Programme ---------- */
+
+.screen-programme { padding: 9vh 20px 10vh; }
+
+.arc-programme { width: min(74vw, 360px); }
+
+.script-title {
+  margin: 0 0 clamp(32px, 7vh, 58px);
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  font-size: clamp(46px, 13vw, 76px);
+  line-height: 1;
+}
+
+.programme-list {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(28px, 6vh, 46px);
+}
+
+.programme-item {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 4vw, 26px);
+}
+
+.programme-icon-rings { width: clamp(80px, 22vw, 104px); flex: 0 0 auto; }
+.programme-icon-glasses { width: clamp(46px, 12vw, 58px); flex: 0 0 auto; margin: 0 clamp(17px, 5vw, 23px); }
+
+.programme-when { font-size: clamp(20px, 5.6vw, 28px); line-height: 1.25; }
+
+.programme-where {
+  display: inline-block;
+  font-size: clamp(15px, 4.2vw, 19px);
+  line-height: 1.4;
+  opacity: .9;
+  text-wrap: pretty;
+  border-bottom: 1px solid rgba(62, 82, 51, .35);
+  transition: border-color .3s ease, opacity .3s ease;
+}
+.programme-where:hover { border-bottom-color: #3E5233; opacity: 1; }
+
+.couple-img { width: min(50vw, 260px); margin-top: clamp(30px, 6vh, 52px); }
+
+/* ---------- 03 Dress code ---------- */
+
+.screen-dresscode { padding: 12vh 20px; }
+
+.arc-dresscode {
+  width: min(62vw, 260px);
+  opacity: .45;
+  animation: fp-drift 21s ease-in-out infinite;
+}
+
+.dresscode-title {
+  margin: clamp(4px, 1vh, 12px) 0 clamp(14px, 3vh, 22px);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(34px, 9.5vw, 52px);
+}
+
+.dresscode-intro {
+  margin: 0 0 clamp(34px, 7vh, 60px);
+  max-width: 24em;
+  text-align: center;
+  font-size: clamp(15px, 4vw, 18px);
+  line-height: 1.6;
+  opacity: .85;
+  text-wrap: pretty;
+}
+
+.swatch-row {
+  width: 100%;
+  max-width: 580px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(16px, 5vw, 40px);
+}
+
+.swatch-col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 5vh, 36px);
+}
+
+.swatch-col-title { font-style: italic; font-size: clamp(19px, 5.2vw, 26px); }
+
+.swatch-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(6px, 2vw, 14px);
+  width: 100%;
+}
+
+.swatch {
+  width: clamp(30px, 9.5vw, 56px);
+  height: clamp(46px, 14vw, 84px);
+  border-radius: 999px 999px 2px 2px;
+}
+.swatch-grey-1 { background: #B9B9B9; }
+.swatch-grey-2 { background: #9A9C97; }
+.swatch-grey-3 { background: #86867F; }
+.swatch-green-1 { background: #5B6640; }
+.swatch-green-2 { background: #8B9767; }
+.swatch-green-3 { background: #BCC4A5; }
+
+.swatch-labels {
+  font-size: clamp(11px, 2.9vw, 14px);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  opacity: .7;
+  text-align: center;
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+.swatch-divider {
+  width: 1px;
+  background: #3E5233;
+  align-self: stretch;
+  margin: clamp(6px, 2vh, 14px) 0;
+  flex: 0 0 auto;
+}
+
+.dresscode-note-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 3vh, 22px);
+  margin-top: clamp(38px, 8vh, 68px);
+}
+
+.hairline { width: 46px; height: 1px; background: #3E5233; opacity: .45; }
+
+.dresscode-note {
+  margin: 0;
+  max-width: 22em;
+  text-align: center;
+  font-style: italic;
+  font-size: clamp(15px, 4vw, 18px);
+  line-height: 1.6;
+  opacity: .85;
+  text-wrap: pretty;
+}
+
+/* ---------- 04 Mot des mariés ---------- */
+
+.screen-mot { padding: 12vh 24px; overflow: hidden; }
+
+.arc-mot {
+  position: relative;
+  width: min(80vw, 380px);
+  margin-bottom: clamp(16px, 4vh, 32px);
+  opacity: .55;
+  animation: fp-drift 19s ease-in-out infinite;
+}
+
+.script-quote {
+  position: relative;
+  margin: 0;
+  max-width: 16em;
+  text-align: center;
+  font-family: 'Pinyon Script', cursive;
+  font-size: clamp(38px, 11vw, 64px);
+  line-height: 1.28;
+  text-wrap: pretty;
+}
+
+.hairline-mot { position: relative; margin-top: clamp(30px, 6vh, 48px); opacity: .5; }
+
+.mot-signature {
+  position: relative;
+  margin: clamp(18px, 4vh, 28px) 0 0;
+  font-size: 12px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: .75;
+}
+
+/* ---------- 05 RSVP ---------- */
+
+.screen-rsvp { padding: 10vh 20px 9vh; overflow: hidden; }
+
+.deco-rsvp {
+  position: absolute;
+  bottom: -3vh;
+  right: -20%;
+  width: min(66vw, 360px);
+  opacity: .75;
+  animation: fp-drift 20s ease-in-out infinite;
+}
+
+.rsvp-sent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.rsvp-confirmation {
+  margin: 0;
+  max-width: 18em;
+  font-size: clamp(17px, 4.6vw, 20px);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.link-button {
+  margin-top: 12px;
+  min-height: 44px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(62, 82, 51, .5);
+  color: #3E5233;
+  font-size: 14px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 4px 2px;
+  cursor: pointer;
+}
+
+.rsvp-form {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rsvp-title {
+  margin: 0;
+  font-family: 'Pinyon Script', cursive;
+  font-weight: 400;
+  font-size: clamp(42px, 12vw, 68px);
+  line-height: 1;
+}
+
+.rsvp-deadline {
+  margin: 12px 0 clamp(26px, 5vh, 40px);
+  text-align: center;
+  font-size: clamp(14px, 3.9vw, 17px);
+  line-height: 1.55;
+  opacity: .85;
+}
+
+.rsvp-fields {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field-label {
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  opacity: .8;
+}
+
+.field-input {
+  width: 100%;
+  min-height: 44px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(62, 82, 51, .35);
+  padding: 8px 2px;
+  font-size: 18px;
+  color: #3E5233;
+  outline: none;
+  border-radius: 0;
+  transition: border-color .35s ease;
+}
+.field-input:focus { border-bottom-color: #3E5233; }
+
+.attend-row { display: flex; gap: 10px; margin-top: 4px; }
+
+.attend-btn {
+  flex: 1 1 0;
+  min-height: 48px;
+  padding: 12px 10px;
+  font-size: 14px;
+  letter-spacing: .06em;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background .35s ease, color .35s ease, border-color .35s ease;
+  border: 1px solid rgba(62, 82, 51, .35);
+  background: transparent;
+  color: #3E5233;
+}
+.attend-btn.is-active {
+  border-color: #3E5233;
+  background: #3E5233;
+  color: #F8F7EF;
+}
+
+.count-wrap {
+  overflow: hidden;
+  transition: max-height .55s cubic-bezier(.22, .61, .36, 1), opacity .45s ease;
+  opacity: 0;
+  max-height: 0;
+}
+.count-wrap.is-visible { opacity: 1; max-height: 140px; }
+
+.count-row { display: flex; align-items: center; gap: 18px; padding-top: 4px; }
+
+.count-btn {
+  width: 46px;
+  height: 46px;
+  border: 1px solid rgba(62, 82, 51, .4);
+  border-radius: 50%;
+  background: transparent;
+  color: #3E5233;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .3s ease;
+}
+.count-btn:hover { background: rgba(62, 82, 51, .07); }
+
+.count-value { font-size: 28px; min-width: 1.4em; text-align: center; }
+
+.submit-btn {
+  margin-top: 8px;
+  min-height: 52px;
+  width: 100%;
+  background: #3E5233;
+  border: 1px solid #3E5233;
+  color: #F8F7EF;
+  font-size: 15px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .35s ease, color .35s ease;
+}
+.submit-btn:hover { background: #F8F7EF; color: #3E5233; }
+.submit-btn:disabled { cursor: default; opacity: .7; }
+
+.form-error {
+  font-size: 15px;
+  line-height: 1.4;
+  text-align: center;
+  color: #7A4A32;
+  overflow: hidden;
+  transition: max-height .4s ease, opacity .4s ease;
+  opacity: 0;
+  max-height: 0;
+}
+.form-error.is-visible { opacity: 1; max-height: 80px; }

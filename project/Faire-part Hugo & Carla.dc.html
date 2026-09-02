@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&amp;family=Pinyon+Script&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #F8F7EF; overscroll-behavior-y: none; overflow-x: hidden; }
+  @media (max-width: 420px) { input { font-size: 16px !important; } }
+  * { box-sizing: border-box; }
+  a { color: #3E5233; text-decoration: none; }
+  a:hover { color: #5B6640; }
+  input, select, button { font-family: 'EB Garamond', Garamond, serif; }
+  input::placeholder { color: rgba(62,82,51,.35); }
+  @keyframes fp-bob { 0%, 100% { transform: translateY(0); opacity: .5; } 50% { transform: translateY(8px); opacity: 1; } }
+  @keyframes fp-drift { 0%, 100% { transform: translate3d(0,0,0) rotate(0deg); } 50% { transform: translate3d(0,-10px,0) rotate(-1.2deg); } }
+  [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity 1.1s cubic-bezier(.22,.61,.36,1), transform 1.1s cubic-bezier(.22,.61,.36,1); will-change: opacity, transform; }
+  [data-reveal].is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
+</style>
+</helmet>
+<div ref="{{ scroller }}" style="height: 100vh; height: 100dvh; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; scroll-snap-type: y proximity; scroll-behavior: smooth; background: #F8F7EF; font-family: 'EB Garamond', Garamond, serif; color: #3E5233; -webkit-font-smoothing: antialiased;">
+
+  <section data-screen-label="01 Hero" style="position: relative; min-height: 100dvh; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12vh 20px 15vh; overflow: hidden;">
+    <img src="assets/branch-topleft.png" alt="" style="position: absolute; top: 1vh; left: -16%; width: min(42vw, 440px); pointer-events: none; animation: fp-drift 14s ease-in-out infinite;">
+    <img src="assets/branch-bottomright.png" alt="" style="position: absolute; bottom: -1vh; right: -16%; width: min(44vw, 430px); pointer-events: none; animation: fp-drift 17s ease-in-out infinite reverse;">
+
+    <h1 data-reveal="" style="position: relative; margin: 0; font-family: 'Pinyon Script', cursive; font-weight: 400; font-size: clamp(56px, 17vw, 112px); line-height: .95; text-align: center;">
+      <span style="display: block;">Hugo</span>
+      <span style="display: block; margin-left: -.3em;">&amp; Carla</span>
+    </h1>
+
+    <p data-reveal="" data-delay="180" style="position: relative; margin: clamp(22px, 5vh, 40px) 0 0; font-size: clamp(16px, 4.5vw, 21px); text-align: center; max-width: 20em; line-height: 1.5; text-wrap: pretty;">Rejoignez-nous pour célébrer notre union le</p>
+
+    <div data-reveal="" data-delay="340" style="position: relative; margin-top: clamp(28px, 6vh, 52px); display: flex; align-items: center; justify-content: center; gap: clamp(12px, 4vw, 30px);">
+      <div style="padding: 6px 0; border-top: 1px solid #3E5233; border-bottom: 1px solid #3E5233; font-size: clamp(19px, 5.6vw, 30px);">Vendredi</div>
+      <div style="width: clamp(92px, 27vw, 124px); height: clamp(134px, 39vw, 176px); border: 1px solid #3E5233; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; flex: 0 0 auto;">
+        <span style="font-size: clamp(15px, 4.2vw, 20px);">Mai</span>
+        <span style="font-size: clamp(38px, 11.5vw, 56px); line-height: 1;">14</span>
+        <span style="font-size: clamp(14px, 3.8vw, 18px);">2027</span>
+      </div>
+      <div style="padding: 6px 0; border-top: 1px solid #3E5233; border-bottom: 1px solid #3E5233; font-size: clamp(19px, 5.6vw, 30px);">15h30</div>
+    </div>
+
+    <div onClick="{{ next }}" style="position: absolute; bottom: 24px; left: 50%; margin-left: -70px; width: 140px; display: flex; flex-direction: column; align-items: center; gap: 9px; cursor: pointer; animation: fp-bob 2.8s ease-in-out infinite;">
+      <span style="font-size: 11px; letter-spacing: .22em; text-transform: uppercase;">Faites glisser</span>
+      <span style="width: 9px; height: 9px; border-right: 1px solid #3E5233; border-bottom: 1px solid #3E5233; transform: rotate(45deg);"></span>
+    </div>
+  </section>
+
+  <section data-screen-label="02 Programme" style="position: relative; min-height: 100dvh; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 9vh 20px 10vh;">
+    <img data-reveal="" alt="" src="assets/branch-arc.png" style="width: min(74vw, 360px);">
+    <h2 data-reveal="" data-delay="140" style="margin: 0 0 clamp(32px, 7vh, 58px); font-family: 'Pinyon Script', cursive; font-weight: 400; font-size: clamp(46px, 13vw, 76px); line-height: 1;">Le programme</h2>
+
+    <div style="width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: clamp(28px, 6vh, 46px);">
+      <div data-reveal="" data-delay="260" style="display: flex; align-items: center; gap: clamp(14px, 4vw, 26px);">
+        <img src="assets/rings.png" alt="" style="width: clamp(80px, 22vw, 104px); flex: 0 0 auto;">
+        <div>
+          <div style="font-size: clamp(20px, 5.6vw, 28px); line-height: 1.25;">15 H 30 — Cérémonie</div>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=17+Grand+Place%2C+59100+Roubaix" target="_blank" rel="noopener" style="display: inline-block; font-size: clamp(15px, 4.2vw, 19px); line-height: 1.4; opacity: .9; border-bottom: 1px solid rgba(62,82,51,.35); transition: border-color .3s ease, opacity .3s ease;" style-hover="border-bottom-color: #3E5233; opacity: 1;">17 grand place, Roubaix 59100</a>
+        </div>
+      </div>
+      <div data-reveal="" data-delay="400" style="display: flex; align-items: center; gap: clamp(14px, 4vw, 26px);">
+        <img src="assets/glasses.png" alt="" style="width: clamp(46px, 12vw, 58px); flex: 0 0 auto; margin: 0 clamp(17px, 5vw, 23px);">
+        <div>
+          <div style="font-size: clamp(20px, 5.6vw, 28px); line-height: 1.25;">17 H 00 — Vin d’honneur</div>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Lauwestraat+59%2C+8560+Wevelgem%2C+Belgique" target="_blank" rel="noopener" style="display: inline-block; font-size: clamp(15px, 4.2vw, 19px); line-height: 1.4; opacity: .9; text-wrap: pretty; border-bottom: 1px solid rgba(62,82,51,.35); transition: border-color .3s ease, opacity .3s ease;" style-hover="border-bottom-color: #3E5233; opacity: 1;">Lauwestraat 59, 8560 Wevelgem, Belgique</a>
+        </div>
+      </div>
+    </div>
+
+    <img data-reveal="" data-delay="540" alt="" src="assets/couple.png" style="width: min(50vw, 260px); margin-top: clamp(30px, 6vh, 52px);">
+  </section>
+
+  <section data-screen-label="03 Dress code" style="position: relative; min-height: 100dvh; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12vh 20px;">
+    <img src="assets/branch-arc.png" alt="" data-reveal="" style="width: min(62vw, 260px); opacity: .45; pointer-events: none; animation: fp-drift 21s ease-in-out infinite;">
+    <h2 data-reveal="" data-delay="80" style="margin: clamp(4px, 1vh, 12px) 0 clamp(14px, 3vh, 22px); font-style: italic; font-weight: 400; font-size: clamp(34px, 9.5vw, 52px);">Dress Code</h2>
+    <p data-reveal="" data-delay="140" style="margin: 0 0 clamp(34px, 7vh, 60px); max-width: 24em; text-align: center; font-size: clamp(15px, 4vw, 18px); line-height: 1.6; opacity: .85; text-wrap: pretty;">Nous rêvons d’une palette naturelle : verts sauge et olive pour les femmes, nuances de gris pour les hommes.</p>
+
+    <div style="width: 100%; max-width: 580px; display: flex; align-items: stretch; justify-content: center; gap: clamp(16px, 5vw, 40px);">
+      <div data-reveal="" data-delay="180" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 5vh, 36px);">
+        <div style="font-style: italic; font-size: clamp(19px, 5.2vw, 26px);">Hommes</div>
+        <div style="display: flex; align-items: flex-end; justify-content: center; gap: clamp(6px, 2vw, 14px); width: 100%;">
+          <div style="width: clamp(30px, 9.5vw, 56px); height: clamp(46px, 14vw, 84px); background: #B9B9B9; border-radius: 999px 999px 2px 2px;"></div>
+          <div style="width: clamp(30px, 9.5vw, 56px); height: clamp(46px, 14vw, 84px); background: #9A9C97; border-radius: 999px 999px 2px 2px;"></div>
+          <div style="width: clamp(30px, 9.5vw, 56px); height: clamp(46px, 14vw, 84px); background: #86867F; border-radius: 999px 999px 2px 2px;"></div>
+        </div>
+        <div style="font-size: clamp(11px, 2.9vw, 14px); letter-spacing: .04em; text-transform: uppercase; opacity: .7; text-align: center; line-height: 1.7; word-break: break-word;">Gris perle · Gris moyen<br>Anthracite</div>
+      </div>
+      <div data-reveal="" data-delay="100" style="width: 1px; background: #3E5233; align-self: stretch; margin: clamp(6px, 2vh, 14px) 0; flex: 0 0 auto;"></div>
+      <div data-reveal="" data-delay="320" style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: clamp(20px, 5vh, 36px);">
+        <div style="font-style: italic; font-size: clamp(19px, 5.2vw, 26px);">Femmes</div>
+        <div style="display: flex; align-items: flex-end; justify-content: center; gap: clamp(6px, 2vw, 14px); width: 100%;">
+          <div style="width: clamp(30px, 9.5vw, 56px); height: clamp(46px, 14vw, 84px); background: #5B6640; border-radius: 999px 999px 2px 2px;"></div>
+          <div style="width: clamp(30px, 9.5vw, 56px); height: clamp(46px, 14vw, 84px); background: #8B9767; border-radius: 999px 999px 2px 2px;"></div>
+          <div style="width: clamp(30px, 9.5vw, 56px); height: clamp(46px, 14vw, 84px); background: #BCC4A5; border-radius: 999px 999px 2px 2px;"></div>
+        </div>
+        <div style="font-size: clamp(11px, 2.9vw, 14px); letter-spacing: .04em; text-transform: uppercase; opacity: .7; text-align: center; line-height: 1.7; word-break: break-word;">Olive · Sauge<br>Amande</div>
+      </div>
+    </div>
+
+    <div data-reveal="" data-delay="440" style="display: flex; flex-direction: column; align-items: center; gap: clamp(14px, 3vh, 22px); margin-top: clamp(38px, 8vh, 68px);">
+      <div style="width: 46px; height: 1px; background: #3E5233; opacity: .45;"></div>
+      <p style="margin: 0; max-width: 22em; text-align: center; font-style: italic; font-size: clamp(15px, 4vw, 18px); line-height: 1.6; opacity: .85; text-wrap: pretty;">Le blanc est réservé à la mariée. Pour le reste, faites-vous plaisir.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="04 Mot des mariés" style="position: relative; min-height: 100dvh; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12vh 24px; overflow: hidden;" data-comment-anchor="07bb630f39-section">
+    <img src="assets/branch-arc.png" alt="" data-reveal="" style="position: relative; width: min(80vw, 380px); margin-bottom: clamp(16px, 4vh, 32px); opacity: .55; pointer-events: none; animation: fp-drift 19s ease-in-out infinite;">
+    <p data-reveal="" style="position: relative; margin: 0; max-width: 16em; text-align: center; font-family: 'Pinyon Script', cursive; font-size: clamp(38px, 11vw, 64px); line-height: 1.28; text-wrap: pretty;">Venez célébrer notre union ❤️</p>
+    <div data-reveal="" data-delay="260" style="position: relative; margin-top: clamp(30px, 6vh, 48px); width: 46px; height: 1px; background: #3E5233; opacity: .5;"></div>
+    <p data-reveal="" data-delay="360" style="position: relative; margin: clamp(18px, 4vh, 28px) 0 0; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; opacity: .75;">Hugo &amp; Carla</p>
+  </section>
+
+  <section data-screen-label="05 RSVP" style="position: relative; min-height: 100dvh; scroll-snap-align: start; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10vh 20px 9vh; overflow: hidden;">
+    <img src="assets/branch-bottomright.png" alt="" style="position: absolute; bottom: -3vh; right: -20%; width: min(66vw, 360px); opacity: .75; pointer-events: none; animation: fp-drift 20s ease-in-out infinite;">
+
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <div style="position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px;">
+        <h2 style="margin: 0; font-family: 'Pinyon Script', cursive; font-weight: 400; font-size: clamp(46px, 13vw, 76px); line-height: 1;">Merci</h2>
+        <p style="margin: 0; max-width: 18em; font-size: clamp(17px, 4.6vw, 20px); line-height: 1.55; text-wrap: pretty;">{{ confirmation }}</p>
+        <button onClick="{{ reset }}" style="margin-top: 12px; min-height: 44px; background: none; border: none; border-bottom: 1px solid rgba(62,82,51,.5); color: #3E5233; font-size: 14px; letter-spacing: .14em; text-transform: uppercase; padding: 4px 2px; cursor: pointer;">Modifier ma réponse</button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+      <div style="position: relative; width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center;">
+        <h2 data-reveal="" style="margin: 0; font-family: 'Pinyon Script', cursive; font-weight: 400; font-size: clamp(42px, 12vw, 68px); line-height: 1;">Votre réponse</h2>
+        <p data-reveal="" data-delay="140" style="margin: 12px 0 clamp(26px, 5vh, 40px); text-align: center; font-size: clamp(14px, 3.9vw, 17px); line-height: 1.55; opacity: .85;">Merci de nous répondre avant le 14 janvier 2027.</p>
+
+        <div data-reveal="" data-delay="240" style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+          <label style="display: flex; flex-direction: column; gap: 6px;">
+            <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .8;">Nom</span>
+            <input value="{{ lastName }}" onChange="{{ onLastName }}" placeholder="Dupont" autoComplete="family-name" style="width: 100%; min-height: 44px; background: transparent; border: none; border-bottom: 1px solid rgba(62,82,51,.35); padding: 8px 2px; font-size: 18px; color: #3E5233; outline: none; border-radius: 0; transition: border-color .35s ease;" style-focus="border-bottom-color: #3E5233;">
+          </label>
+
+          <label style="display: flex; flex-direction: column; gap: 6px;">
+            <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .8;">Prénom</span>
+            <input value="{{ firstName }}" onChange="{{ onFirstName }}" placeholder="Marie" autoComplete="given-name" style="width: 100%; min-height: 44px; background: transparent; border: none; border-bottom: 1px solid rgba(62,82,51,.35); padding: 8px 2px; font-size: 18px; color: #3E5233; outline: none; border-radius: 0; transition: border-color .35s ease;" style-focus="border-bottom-color: #3E5233;">
+          </label>
+
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 4px;">
+            <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .8;">Serez-vous présent·e ?</span>
+            <div style="display: flex; gap: 10px;">
+              <button onClick="{{ pickYes }}" style="{{ yesStyle }}">Avec plaisir</button>
+              <button onClick="{{ pickNo }}" style="{{ noStyle }}">Malheureusement non</button>
+            </div>
+          </div>
+
+          <div style="{{ countWrapStyle }}">
+            <label style="display: flex; flex-direction: column; gap: 6px;">
+              <span style="font-size: 11px; letter-spacing: .2em; text-transform: uppercase; opacity: .8;">Nombre de personnes</span>
+              <div style="display: flex; align-items: center; gap: 18px; padding-top: 4px;">
+                <button onClick="{{ dec }}" style="width: 46px; height: 46px; border: 1px solid rgba(62,82,51,.4); border-radius: 50%; background: transparent; color: #3E5233; font-size: 22px; line-height: 1; cursor: pointer; transition: background .3s ease;" style-hover="background: rgba(62,82,51,.07);">−</button>
+                <span style="font-size: 28px; min-width: 1.4em; text-align: center;">{{ count }}</span>
+                <button onClick="{{ inc }}" style="width: 46px; height: 46px; border: 1px solid rgba(62,82,51,.4); border-radius: 50%; background: transparent; color: #3E5233; font-size: 22px; line-height: 1; cursor: pointer; transition: background .3s ease;" style-hover="background: rgba(62,82,51,.07);">+</button>
+              </div>
+            </label>
+          </div>
+
+          <button onClick="{{ submit }}" style="margin-top: 8px; min-height: 52px; width: 100%; background: #3E5233; border: 1px solid #3E5233; color: #F8F7EF; font-size: 15px; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; transition: background .35s ease, color .35s ease;" style-hover="background: #F8F7EF; color: #3E5233;">{{ submitLabel }}</button>
+
+          <div style="{{ errorStyle }}">{{ error }}</div>
+        </div>
+      </div>
+    </sc-if>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;sheetUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Formulaire&quot;},&quot;deadline&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;1er avril 2027&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Formulaire&quot;}}">
+const STORE = 'faire-part-hugo-carla-rsvp';
+
+class Component extends DCLogic {
+  state = { lastName: '', firstName: '', attending: null, count: 2, sent: false, sending: false, error: '', saved: null };
+
+  componentDidMount() {
+    try {
+      const raw = localStorage.getItem(STORE);
+      if (raw) { const d = JSON.parse(raw); this.setState({ saved: d, sent: true }); }
+    } catch (e) {}
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          const d = parseInt(en.target.getAttribute('data-delay') || '0', 10);
+          setTimeout(() => en.target.classList.add('is-in'), d);
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    this._io = io;
+    this._scan = () => {
+      const root = this._scroller || document;
+      root.querySelectorAll('[data-reveal]:not(.is-in)').forEach((el) => io.observe(el));
+    };
+    this._scan();
+    this._t = setInterval(this._scan, 700);
+  }
+
+  componentDidUpdate() { if (this._scan) this._scan(); }
+  componentWillUnmount() { clearInterval(this._t); if (this._io) this._io.disconnect(); }
+
+  async send(payload) {
+    const url = (this.props.sheetUrl || '').trim();
+    if (!url) return;
+    await fetch(url, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+  }
+
+  submit = async () => {
+    const { lastName, firstName, attending, count } = this.state;
+    if (!lastName.trim() || !firstName.trim()) return this.setState({ error: 'Merci d’indiquer votre nom et votre prénom.' });
+    if (attending === null) return this.setState({ error: 'Merci de nous dire si vous serez présent·e.' });
+    const payload = { nom: lastName.trim(), prenom: firstName.trim(), presence: attending ? 'oui' : 'non', nombre: attending ? count : 0, date: new Date().toISOString() };
+    this.setState({ sending: true, error: '' });
+    try { await this.send(payload); } catch (e) {}
+    try { localStorage.setItem(STORE, JSON.stringify(payload)); } catch (e) {}
+    this.setState({ sending: false, sent: true, saved: payload });
+  };
+
+  reset = () => {
+    const s = this.state.saved;
+    this.setState({ sent: false, error: '', lastName: s ? s.nom : this.state.lastName, firstName: s ? s.prenom : this.state.firstName, attending: s ? s.presence === 'oui' : this.state.attending, count: s && s.nombre ? s.nombre : this.state.count });
+  };
+
+  renderVals() {
+    const st = this.state;
+    const s = st.saved;
+    const btn = (on) => 'flex:1 1 0; min-height:48px; padding:12px 10px; font-size:14px; letter-spacing:.06em; cursor:pointer; border-radius:0; transition:background .35s ease, color .35s ease, border-color .35s ease; border:1px solid ' + (on ? '#3E5233' : 'rgba(62,82,51,.35)') + '; background:' + (on ? '#3E5233' : 'transparent') + '; color:' + (on ? '#F8F7EF' : '#3E5233') + ';';
+    const showCount = st.attending === true;
+    return {
+      scroller: (el) => { this._scroller = el; },
+      next: () => { if (this._scroller) this._scroller.scrollBy({ top: this._scroller.clientHeight, behavior: 'smooth' }); },
+      lastName: st.lastName,
+      firstName: st.firstName,
+      count: st.count,
+      sent: st.sent,
+      notSent: !st.sent,
+      error: st.error,
+      errorStyle: 'font-size:15px; line-height:1.4; text-align:center; color:#7A4A32; overflow:hidden; transition:max-height .4s ease, opacity .4s ease; opacity:' + (st.error ? 1 : 0) + '; max-height:' + (st.error ? '80px' : '0px') + ';',
+      submitLabel: st.sending ? 'Envoi…' : 'Envoyer',
+      yesStyle: btn(st.attending === true),
+      noStyle: btn(st.attending === false),
+      countWrapStyle: 'overflow:hidden; transition:max-height .55s cubic-bezier(.22,.61,.36,1), opacity .45s ease; opacity:' + (showCount ? 1 : 0) + '; max-height:' + (showCount ? '140px' : '0px') + ';',
+      confirmation: s ? (s.presence === 'oui'
+        ? 'Nous avons bien noté votre présence' + (s.nombre > 1 ? ' à ' + s.nombre + '. À très bientôt !' : '. À très bientôt !')
+        : 'Nous avons bien reçu votre réponse. Vous nous manquerez.') : '',
+      onLastName: (e) => this.setState({ lastName: e.target.value, error: '' }),
+      onFirstName: (e) => this.setState({ firstName: e.target.value, error: '' }),
+      pickYes: () => this.setState({ attending: true, error: '' }),
+      pickNo: () => this.setState({ attending: false, error: '' }),
+      inc: () => this.setState((p) => ({ count: Math.min(10, p.count + 1) })),
+      dec: () => this.setState((p) => ({ count: Math.max(1, p.count - 1) })),
+      submit: this.submit,
+      reset: this.reset
+    };
+  }
+}
+</script>
+</body>
+</html>
