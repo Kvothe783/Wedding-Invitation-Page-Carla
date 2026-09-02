@@ -5,7 +5,7 @@
   // RSVP responses to a Google Sheet. Leave empty to keep responses local
   // to each visitor's browser only.
   const CONFIG = {
-    sheetUrl: ''
+    sheetUrl: 'https://script.google.com/macros/s/AKfycbwoW0GjkOf0kDXL9NfRsgOGE1e4X28nOosOXRH3tdJpw7W6aWmblIO5v69yKzdOopfNxA/exec'
   };
 
   const STORE_KEY = 'faire-part-hugo-carla-rsvp';
