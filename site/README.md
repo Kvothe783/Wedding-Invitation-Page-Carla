@@ -23,11 +23,29 @@ Par défaut, chaque réponse au formulaire est simplement conservée dans le nav
    ```js
    function doPost(e) {
      var d = JSON.parse(e.postData.contents);
-     SpreadsheetApp.getActiveSheet().appendRow([d.date, d.nom, d.prenom, d.presence, d.nombre]);
+     var sheet = SpreadsheetApp.getActiveSheet();
+     var data = sheet.getDataRange().getValues();
+     var nom = String(d.nom || '').trim().toLowerCase();
+     var prenom = String(d.prenom || '').trim().toLowerCase();
+     var rowIndex = -1;
+     for (var i = 1; i < data.length; i++) {
+       var rNom = String(data[i][1] || '').trim().toLowerCase();
+       var rPrenom = String(data[i][2] || '').trim().toLowerCase();
+       if (rNom === nom && rPrenom === prenom) { rowIndex = i + 1; break; }
+     }
+     var row = [d.date, d.nom, d.prenom, d.presence, d.nombre];
+     if (rowIndex > 0) {
+       sheet.getRange(rowIndex, 1, 1, row.length).setValues([row]);
+     } else {
+       sheet.appendRow(row);
+     }
      return ContentService.createTextOutput('ok');
    }
    ```
+   Une même personne (même nom + prénom, insensible à la casse) qui repasse par « Modifier ma réponse » met donc à jour sa ligne existante au lieu d'en créer une nouvelle.
 3. **Déployer → Nouveau déploiement → Application Web**. Exécuter en tant que « Moi », accès « Tout le monde ». Copiez l'URL se terminant par `/exec`.
+
+   Pour mettre à jour ce code plus tard **sans changer l'URL** : Déployer → **Gérer les déploiements** → icône crayon sur le déploiement existant → Version → **Nouvelle version** → Déployer.
 4. Collez cette URL dans `script.js`, en haut du fichier :
    ```js
    const CONFIG = {
