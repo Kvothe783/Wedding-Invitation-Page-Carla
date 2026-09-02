@@ -41,6 +41,7 @@
 
   const lastNameInput = document.getElementById('lastName');
   const firstNameInput = document.getElementById('firstName');
+  const emailInput = document.getElementById('email');
   const pickYesBtn = document.getElementById('pickYes');
   const pickNoBtn = document.getElementById('pickNo');
   const countWrap = document.getElementById('countWrap');
@@ -50,9 +51,12 @@
   const submitBtn = document.getElementById('rsvpSubmit');
   const errorEl = document.getElementById('rsvpError');
 
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   const state = {
     lastName: '',
     firstName: '',
+    email: '',
     attending: null, // true | false | null
     count: 2,
     sending: false,
@@ -81,11 +85,12 @@
 
   function confirmationText(saved) {
     if (!saved) return '';
+    const emailNote = saved.email ? ' Un email de confirmation vous a été envoyé à ' + saved.email + '.' : '';
     if (saved.presence === 'oui') {
       return 'Nous avons bien noté votre présence' +
-        (saved.nombre > 1 ? ' à ' + saved.nombre + '. À très bientôt !' : '. À très bientôt !');
+        (saved.nombre > 1 ? ' à ' + saved.nombre + '. À très bientôt !' : '. À très bientôt !') + emailNote;
     }
-    return 'Nous avons bien reçu votre réponse. Vous nous manquerez.';
+    return 'Nous avons bien reçu votre réponse. Vous nous manquerez.' + emailNote;
   }
 
   function showSent(saved) {
@@ -130,6 +135,11 @@
     setError('');
   });
 
+  emailInput.addEventListener('input', (e) => {
+    state.email = e.target.value;
+    setError('');
+  });
+
   pickYesBtn.addEventListener('click', () => {
     state.attending = true;
     setError('');
@@ -157,10 +167,12 @@
     if (saved) {
       state.lastName = saved.nom;
       state.firstName = saved.prenom;
+      state.email = saved.email || state.email;
       state.attending = saved.presence === 'oui';
       state.count = saved.nombre || state.count;
       lastNameInput.value = state.lastName;
       firstNameInput.value = state.firstName;
+      emailInput.value = state.email;
       renderAttendance();
       renderCount();
     }
@@ -175,6 +187,10 @@
       setError('Merci d’indiquer votre nom et votre prénom.');
       return;
     }
+    if (!EMAIL_RE.test(state.email.trim())) {
+      setError('Merci d’indiquer une adresse email valide.');
+      return;
+    }
     if (state.attending === null) {
       setError('Merci de nous dire si vous serez présent·e.');
       return;
@@ -183,6 +199,7 @@
     const payload = {
       nom: state.lastName.trim(),
       prenom: state.firstName.trim(),
+      email: state.email.trim(),
       presence: state.attending ? 'oui' : 'non',
       nombre: state.attending ? state.count : 0,
       date: new Date().toISOString()
