@@ -210,7 +210,6 @@ input::placeholder { color: rgba(62, 82, 51, .35); }
 .programme-when { font-size: clamp(20px, 5.6vw, 28px); line-height: 1.25; }
 
 .programme-where {
-  display: inline-block;
   font-size: clamp(15px, 4.2vw, 19px);
   line-height: 1.4;
   opacity: .9;
