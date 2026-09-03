@@ -9,7 +9,7 @@
 // prompt and to receive two sample emails at your own address.
 
 var CONFIG = {
-  brideEmail: 'sauro.lorenzo@icloud.com', // TODO: revert to sauro.carla@hotmail.com after testing
+  brideEmail: 'sauro.carla@hotmail.com',
   senderName: 'Hugo & Carla',
   siteUrl: 'https://kvothe783.github.io/Wedding-Invitation-Page-Carla/'
 };
