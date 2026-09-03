@@ -99,11 +99,16 @@ function sendGuestEmail(d) {
         '</td></tr>';
     }).join('');
 
-    var calRows = EVENTS.map(function (ev) {
-      return '<tr><td style="padding:14px 0;border-top:1px solid rgba(62,82,51,.15);">' +
-        '<div style="font-size:14px;margin-bottom:8px;">' + ev.label + '</div>' +
-        '<a href="' + gcalLink(ev) + '" style="display:inline-block;margin:0 8px 8px 0;padding:8px 14px;border:1px solid #3E5233;color:#3E5233;text-decoration:none;font-size:12px;letter-spacing:.06em;text-transform:uppercase;">+ Google Calendar</a>' +
-        '<a href="' + outlookLink(ev) + '" style="display:inline-block;padding:8px 14px;border:1px solid #3E5233;color:#3E5233;text-decoration:none;font-size:12px;letter-spacing:.06em;text-transform:uppercase;">+ Outlook</a>' +
+    var icsContent = buildIcs(EVENTS);
+    var icsDataUri = 'data:text/calendar;charset=utf-8;base64,' + Utilities.base64Encode(icsContent, Utilities.Charset.UTF_8);
+
+    var perEventRows = EVENTS.map(function (ev) {
+      return '<tr><td align="center" style="padding:12px 0;border-top:1px solid rgba(62,82,51,.15);">' +
+        '<div style="font-size:13px;margin-bottom:10px;">' + ev.label + '</div>' +
+        '<a href="' + gcalLink(ev) + '" style="display:inline-block;margin:0 6px;text-decoration:none;" title="Ajouter au Google Calendar">' +
+        '<img src="' + iconDataUri(ICON_GCAL) + '" width="30" height="30" alt="Google Calendar" style="display:block;border-radius:6px;"></a>' +
+        '<a href="' + outlookLink(ev) + '" style="display:inline-block;margin:0 6px;text-decoration:none;" title="Ajouter à Outlook">' +
+        '<img src="' + iconDataUri(ICON_OUTLOOK) + '" width="30" height="30" alt="Outlook" style="display:block;border-radius:6px;"></a>' +
         '</td></tr>';
     }).join('');
 
@@ -114,12 +119,17 @@ function sendGuestEmail(d) {
       '<p style="font-size:15px;line-height:1.6;text-align:center;margin:0 0 26px;">Bonjour ' + prenom + ', nous avons bien noté votre présence' + countLine + '. À très bientôt !</p>' +
       '<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;opacity:.7;margin-bottom:2px;">Le programme</div>' +
       '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' + progRows + '</table>' +
-      '<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;opacity:.7;margin:30px 0 2px;">Ajouter à mon calendrier</div>' +
-      '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' + calRows + '</table>' +
-      '<p style="font-size:12px;line-height:1.5;opacity:.7;text-align:center;margin-top:16px;">Sur iPhone / Mac : ouvrez le fichier .ics joint pour ajouter les deux événements à Apple Calendar en un geste.</p>'
+      '<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;opacity:.7;margin:30px 0 14px;">Ajouter à mon calendrier</div>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr><td align="center">' +
+      '<a href="' + icsDataUri + '" style="display:inline-block;background:#3E5233;color:#F8F7EF;text-decoration:none;padding:13px 20px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;">' +
+      '<img src="' + iconDataUri(ICON_PLUS) + '" width="15" height="15" alt="" style="vertical-align:middle;margin-right:8px;">Les 2 événements en un geste</a>' +
+      '</td></tr></table>' +
+      '<p style="font-size:12px;line-height:1.5;opacity:.65;text-align:center;margin:10px 0 22px;">Ouvre votre application calendrier (le fichier .ics est aussi joint à cet email) — Apple Calendar, Outlook et Google Calendar proposent alors d’ajouter les deux événements d’un coup.</p>' +
+      '<div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.6;text-align:center;">Ou un par un</div>' +
+      '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' + perEventRows + '</table>'
     );
 
-    attachments.push(Utilities.newBlob(buildIcs(EVENTS), 'text/calendar', 'mariage-hugo-carla.ics'));
+    attachments.push(Utilities.newBlob(icsContent, 'text/calendar', 'mariage-hugo-carla.ics'));
   } else {
     body = emailShell(
       '<div style="font-family:Georgia,\'Apple Chancery\',\'Brush Script MT\',cursive;font-style:italic;font-size:30px;text-align:center;margin:0 0 18px;">Merci pour votre réponse</div>' +
@@ -180,6 +190,38 @@ function emailShell(innerHtml) {
     innerHtml +
     '<div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(62,82,51,.25);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:center;opacity:.7;">Hugo &amp; Carla — 14 mai 2027</div>' +
     '</div></div>';
+}
+
+// ---------- Icons ----------
+// Small self-contained SVGs (no external hosting), evoking each calendar
+// service without reproducing an official logo asset. Encoded to a data
+// URI at send time.
+
+var ICON_GCAL = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 36 36">' +
+  '<rect x="2" y="4" width="32" height="30" rx="5" fill="#ffffff" stroke="#dadce0"/>' +
+  '<path d="M2 9a5 5 0 0 1 5-5h22a5 5 0 0 1 5 5v4H2V9z" fill="#1a73e8"/>' +
+  '<text x="18" y="28" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1a73e8" font-weight="700">31</text>' +
+  '</svg>';
+
+var ICON_OUTLOOK = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 36 36">' +
+  '<rect x="2" y="2" width="32" height="32" rx="6" fill="#0a2767"/>' +
+  '<rect x="16" y="7" width="15" height="22" rx="1.5" fill="#ffffff"/>' +
+  '<rect x="16" y="7" width="15" height="6" fill="#0078d4"/>' +
+  '<circle cx="13" cy="18" r="9.5" fill="#0078d4"/>' +
+  '<text x="13" y="23" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#ffffff" font-weight="700">O</text>' +
+  '</svg>';
+
+var ICON_PLUS = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24">' +
+  '<rect x="3" y="4" width="18" height="17" rx="2" fill="none" stroke="#F8F7EF" stroke-width="1.6"/>' +
+  '<line x1="3" y1="9" x2="21" y2="9" stroke="#F8F7EF" stroke-width="1.6"/>' +
+  '<line x1="7" y1="2" x2="7" y2="6" stroke="#F8F7EF" stroke-width="1.6" stroke-linecap="round"/>' +
+  '<line x1="17" y1="2" x2="17" y2="6" stroke="#F8F7EF" stroke-width="1.6" stroke-linecap="round"/>' +
+  '<line x1="12" y1="12" x2="12" y2="18" stroke="#F8F7EF" stroke-width="1.6" stroke-linecap="round"/>' +
+  '<line x1="9" y1="15" x2="15" y2="15" stroke="#F8F7EF" stroke-width="1.6" stroke-linecap="round"/>' +
+  '</svg>';
+
+function iconDataUri(svg) {
+  return 'data:image/svg+xml;base64,' + Utilities.base64Encode(svg, Utilities.Charset.UTF_8);
 }
 
 function escapeHtml(s) {
