@@ -31,7 +31,9 @@ var EVENTS = [
     address: 'Lauwestraat 59, 8560 Wevelgem, Belgique',
     // 14 May 2027, 17:00–20:00 Europe/Paris (CEST, UTC+2)
     startUtc: '20270514T150000Z',
-    endUtc: '20270514T180000Z'
+    endUtc: '20270514T180000Z',
+    startIso: '2027-05-14T15:00:00Z',
+    endIso: '2027-05-14T18:00:00Z'
   }
 ];
 
@@ -96,15 +98,21 @@ function sendGuestEmail(d) {
     }).join('');
 
     var icsContent = buildIcs(EVENTS);
-    // A real hosted https:// URL, not a data: URI — mail clients (tested:
-    // Apple Mail) refuse to open data:text/calendar links ("no application
-    // configured to open this URL"), but a normal .ics link over https is
-    // universally handled: browsers/Mail hand it off to the calendar app,
-    // which then offers to add every event found inside (both, here).
     var icsUrl = CONFIG.siteUrl + 'mariage-hugo-carla.ics';
+    // webcal:// (not https://) is the scheme macOS/iOS register Calendar.app
+    // for: clicking it opens Calendar directly with a "Subscribe" prompt, no
+    // manual download/double-click needed — unlike a plain https link, which
+    // browsers just save as a file.
+    var webcalUrl = icsUrl.replace(/^https:\/\//, 'webcal://');
+    // These guests are invited to the vin d'honneur specifically (the
+    // ceremony is shown above for information only), and Google/Outlook's
+    // own "add event" links only support one event each anyway — so both
+    // point at that event, opening a pre-filled add-event page with zero
+    // download, on the actual calendar service.
+    var vinHonneur = EVENTS[1];
 
-    var calendarTextLink = function (label) {
-      return '<a href="' + icsUrl + '" style="display:inline-block;margin:0 16px;color:#3E5233;text-decoration:none;font-size:15px;letter-spacing:.02em;">' + label + '</a>';
+    var calendarTextLink = function (url, label) {
+      return '<a href="' + url + '" style="display:inline-block;margin:0 16px;color:#3E5233;text-decoration:none;font-size:15px;letter-spacing:.02em;">' + label + '</a>';
     };
 
     var countLine = d.nombre > 1 ? (' à ' + Number(d.nombre)) : '';
@@ -116,9 +124,9 @@ function sendGuestEmail(d) {
       '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' + progRows + '</table>' +
       '<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;opacity:.7;margin:30px 0 16px;">Ajouter au calendrier</div>' +
       '<table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr><td align="center">' +
-      calendarTextLink('Apple') +
-      calendarTextLink('Google') +
-      calendarTextLink('Outlook') +
+      calendarTextLink(webcalUrl, 'Apple') +
+      calendarTextLink(gcalLink(vinHonneur), 'Google') +
+      calendarTextLink(outlookLink(vinHonneur), 'Outlook') +
       '</td></tr></table>'
     );
 
@@ -216,6 +224,34 @@ function buildIcs(events) {
 
 function icsEscape(s) {
   return String(s).replace(/([,;])/g, '\\$1').replace(/\n/g, '\\n');
+}
+
+function gcalLink(ev) {
+  return 'https://calendar.google.com/calendar/render?' + toQuery({
+    action: 'TEMPLATE',
+    text: ev.title,
+    dates: ev.startUtc + '/' + ev.endUtc,
+    details: 'Mariage de Hugo & Carla',
+    location: ev.address
+  });
+}
+
+function outlookLink(ev) {
+  return 'https://outlook.live.com/calendar/0/deeplink/compose?' + toQuery({
+    path: '/calendar/action/compose',
+    rru: 'addevent',
+    subject: ev.title,
+    startdt: ev.startIso,
+    enddt: ev.endIso,
+    location: ev.address,
+    body: 'Mariage de Hugo & Carla'
+  });
+}
+
+function toQuery(params) {
+  return Object.keys(params).map(function (k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
 }
 
 
