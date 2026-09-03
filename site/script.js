@@ -85,7 +85,7 @@
 
   function confirmationText(saved) {
     if (!saved) return '';
-    const emailNote = saved.email ? ' Un email de confirmation vous a été envoyé à ' + saved.email + '.' : '';
+    const emailNote = saved.email ? ' Un email de confirmation vous a été envoyé à ' + saved.email + ' (pensez à vérifier vos spams si vous ne le voyez pas).' : '';
     if (saved.presence === 'oui') {
       return 'Nous avons bien noté votre présence' +
         (saved.nombre > 1 ? ' à ' + saved.nombre + '. À très bientôt !' : '. À très bientôt !') + emailNote;
