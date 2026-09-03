@@ -98,9 +98,8 @@ function sendGuestEmail(d) {
     var icsContent = buildIcs(EVENTS);
     var icsDataUri = 'data:text/calendar;charset=utf-8;base64,' + Utilities.base64Encode(icsContent, Utilities.Charset.UTF_8);
 
-    var calendarIconLink = function (icon, label) {
-      return '<a href="' + icsDataUri + '" style="display:inline-block;margin:0 14px;text-decoration:none;" title="' + label + '">' +
-        '<img src="' + iconDataUri(icon) + '" width="34" height="34" alt="' + label + '" style="display:block;border-radius:8px;"></a>';
+    var calendarTextLink = function (label) {
+      return '<a href="' + icsDataUri + '" style="display:inline-block;margin:0 16px;color:#3E5233;text-decoration:none;font-size:15px;letter-spacing:.02em;">' + label + '</a>';
     };
 
     var countLine = d.nombre > 1 ? (' à ' + Number(d.nombre)) : '';
@@ -112,9 +111,9 @@ function sendGuestEmail(d) {
       '<table width="100%" cellpadding="0" cellspacing="0" role="presentation">' + progRows + '</table>' +
       '<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;opacity:.7;margin:30px 0 16px;">Ajouter au calendrier</div>' +
       '<table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr><td align="center">' +
-      calendarIconLink(ICON_APPLE, 'Apple Calendar') +
-      calendarIconLink(ICON_GCAL, 'Google Calendar') +
-      calendarIconLink(ICON_OUTLOOK, 'Outlook') +
+      calendarTextLink('Apple') +
+      calendarTextLink('Google') +
+      calendarTextLink('Outlook') +
       '</td></tr></table>'
     );
 
@@ -179,35 +178,6 @@ function emailShell(innerHtml) {
     innerHtml +
     '<div style="margin-top:32px;padding-top:20px;border-top:1px solid rgba(62,82,51,.25);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:center;opacity:.7;">Hugo &amp; Carla — 14 mai 2027</div>' +
     '</div></div>';
-}
-
-// ---------- Icons ----------
-// Small self-contained SVGs (no external hosting), evoking each calendar
-// service without reproducing an official logo asset. Encoded to a data
-// URI at send time.
-
-var ICON_APPLE = '<svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 36 36">' +
-  '<rect x="2" y="2" width="32" height="32" rx="7" fill="#ffffff" stroke="#e3e3e3"/>' +
-  '<path d="M2 9a7 7 0 0 1 7-7h18a7 7 0 0 1 7 7v2H2V9z" fill="#fa3d3d"/>' +
-  '<text x="18" y="28" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1d1d1f" font-weight="700">14</text>' +
-  '</svg>';
-
-var ICON_GCAL = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 36 36">' +
-  '<rect x="2" y="4" width="32" height="30" rx="5" fill="#ffffff" stroke="#dadce0"/>' +
-  '<path d="M2 9a5 5 0 0 1 5-5h22a5 5 0 0 1 5 5v4H2V9z" fill="#1a73e8"/>' +
-  '<text x="18" y="28" font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#1a73e8" font-weight="700">31</text>' +
-  '</svg>';
-
-var ICON_OUTLOOK = '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 36 36">' +
-  '<rect x="2" y="2" width="32" height="32" rx="6" fill="#0a2767"/>' +
-  '<rect x="16" y="7" width="15" height="22" rx="1.5" fill="#ffffff"/>' +
-  '<rect x="16" y="7" width="15" height="6" fill="#0078d4"/>' +
-  '<circle cx="13" cy="18" r="9.5" fill="#0078d4"/>' +
-  '<text x="13" y="23" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#ffffff" font-weight="700">O</text>' +
-  '</svg>';
-
-function iconDataUri(svg) {
-  return 'data:image/svg+xml;base64,' + Utilities.base64Encode(svg, Utilities.Charset.UTF_8);
 }
 
 function escapeHtml(s) {
