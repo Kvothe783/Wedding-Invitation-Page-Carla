@@ -22,7 +22,9 @@ var EVENTS = [
     address: '17 grand place, Roubaix 59100',
     // 14 May 2027, 15:30–16:30 Europe/Paris (CEST, UTC+2)
     startUtc: '20270514T133000Z',
-    endUtc: '20270514T143000Z'
+    endUtc: '20270514T143000Z',
+    startIso: '2027-05-14T13:30:00Z',
+    endIso: '2027-05-14T14:30:00Z'
   },
   {
     key: 'vin-honneur',
@@ -104,12 +106,10 @@ function sendGuestEmail(d) {
     // manual download/double-click needed — unlike a plain https link, which
     // browsers just save as a file.
     var webcalUrl = icsUrl.replace(/^https:\/\//, 'webcal://');
-    // These guests are invited to the vin d'honneur specifically (the
-    // ceremony is shown above for information only), and Google/Outlook's
-    // own "add event" links only support one event each anyway — so both
-    // point at that event, opening a pre-filled add-event page with zero
-    // download, on the actual calendar service.
-    var vinHonneur = EVENTS[1];
+    // Google/Outlook's own "add event" links only support one event each
+    // (a real platform limitation), so both point at the ceremony —
+    // opening a pre-filled add-event page with zero download.
+    var calendarEvent = EVENTS[0];
 
     var calendarTextLink = function (url, label) {
       return '<a href="' + url + '" style="display:inline-block;margin:0 16px;color:#3E5233;text-decoration:none;font-size:15px;letter-spacing:.02em;">' + label + '</a>';
@@ -125,8 +125,8 @@ function sendGuestEmail(d) {
       '<div style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;opacity:.7;margin:30px 0 16px;">Ajouter au calendrier</div>' +
       '<table width="100%" cellpadding="0" cellspacing="0" role="presentation"><tr><td align="center">' +
       calendarTextLink(webcalUrl, 'Apple') +
-      calendarTextLink(gcalLink(vinHonneur), 'Google') +
-      calendarTextLink(outlookLink(vinHonneur), 'Outlook') +
+      calendarTextLink(gcalLink(calendarEvent), 'Google') +
+      calendarTextLink(outlookLink(calendarEvent), 'Outlook') +
       '</td></tr></table>'
     );
 
