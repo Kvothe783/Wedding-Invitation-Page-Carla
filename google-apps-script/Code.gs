@@ -96,10 +96,15 @@ function sendGuestEmail(d) {
     }).join('');
 
     var icsContent = buildIcs(EVENTS);
-    var icsDataUri = 'data:text/calendar;charset=utf-8;base64,' + Utilities.base64Encode(icsContent, Utilities.Charset.UTF_8);
+    // A real hosted https:// URL, not a data: URI — mail clients (tested:
+    // Apple Mail) refuse to open data:text/calendar links ("no application
+    // configured to open this URL"), but a normal .ics link over https is
+    // universally handled: browsers/Mail hand it off to the calendar app,
+    // which then offers to add every event found inside (both, here).
+    var icsUrl = CONFIG.siteUrl + 'mariage-hugo-carla.ics';
 
     var calendarTextLink = function (label) {
-      return '<a href="' + icsDataUri + '" style="display:inline-block;margin:0 16px;color:#3E5233;text-decoration:none;font-size:15px;letter-spacing:.02em;">' + label + '</a>';
+      return '<a href="' + icsUrl + '" style="display:inline-block;margin:0 16px;color:#3E5233;text-decoration:none;font-size:15px;letter-spacing:.02em;">' + label + '</a>';
     };
 
     var countLine = d.nombre > 1 ? (' à ' + Number(d.nombre)) : '';

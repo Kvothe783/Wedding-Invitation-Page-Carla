@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Hugo & Carla//Mariage 2027//FR
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:ceremonie-hugo-carla-2027@kvothe783.github.io
+DTSTAMP:20260903T000000Z
+DTSTART:20270514T133000Z
+DTEND:20270514T143000Z
+SUMMARY:Mariage Hugo & Carla — Cérémonie
+LOCATION:17 grand place\, Roubaix 59100
+DESCRIPTION:Mariage de Hugo & Carla — 15 h 30 — Cérémonie
+END:VEVENT
+BEGIN:VEVENT
+UID:vin-honneur-hugo-carla-2027@kvothe783.github.io
+DTSTAMP:20260903T000000Z
+DTSTART:20270514T150000Z
+DTEND:20270514T180000Z
+SUMMARY:Mariage Hugo & Carla — Vin d’honneur
+LOCATION:Lauwestraat 59\, 8560 Wevelgem\, Belgique
+DESCRIPTION:Mariage de Hugo & Carla — 17 h 00 — Vin d’honneur
+END:VEVENT
+END:VCALENDAR
